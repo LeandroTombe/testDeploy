@@ -1,0 +1,57 @@
+#configuracion de paypal
+paypal:
+  client-id: Aes9qI3mUBqpxFZLZNaOOJveJTrYH5WlomVyvsdoSyEHtR31ePoU6n8BeWvB3Y70UbxUMOE7SwDnPaCx
+  client-secret: EIAvxKBRJ49pcfyD5a8QP1eFqFqC556pqhN9NywWe2ANXO7d-h5PDQyM2xPr51rkegRHG0fi5H48ScdI
+  mode: sandbox # sandbox or live, como es para pruebas sandbox
+
+#puerto del servidor
+server:
+  port: 3000
+
+
+#configuracion base de datos
+spring:
+  datasource:
+    url: jdbc:mysql://root:iFqbDtsPRmGfOHWCvlxkAxgsQdWKOQwr@monorail.proxy.rlwy.net:34335/railway
+    username: root
+    password: iFqbDtsPRmGfOHWCvlxkAxgsQdWKOQwr
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+#Configuracion de email java
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: leandro.tombetta97@gmail.com
+    password: fhyvdhcgqnzafzpy
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
+
+#Documentación con swagger
+springdoc:
+  api-docs:
+    enable: true
+  swagger-ui:
+    enable: true
+    path: /swagger-ui.html
+
+
+
+
+
+#configuracion de seguridad
+  security:
+    jwt:
+      expiration-in-minute: 1
+      secret-key: aoisdnoaisdnaiosdnaoisdnoasd9302j3029jrdfoig
+
+
+
+
+

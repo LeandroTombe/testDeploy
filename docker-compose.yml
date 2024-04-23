@@ -1,0 +1,26 @@
+version: '3.8'
+
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_proyecto
+    ports:
+      - "3307:3307"
+    container_name: my-mysql-nocountry-compose
+    volumes:
+      - mysql_volumen:/var/lib/mysql
+
+  my-app:
+    build: .
+    image: proyectonc:latest
+    ports:
+      - 3000:3000
+    container_name: my-app-nocountry-compose
+    depends_on:
+      - db
+volumes:
+  mysql_volumen:
