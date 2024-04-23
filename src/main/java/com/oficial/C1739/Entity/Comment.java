@@ -1,5 +1,6 @@
 package com.oficial.C1739.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class Comment extends Auditable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_project")
+    @JsonIgnore
     private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)

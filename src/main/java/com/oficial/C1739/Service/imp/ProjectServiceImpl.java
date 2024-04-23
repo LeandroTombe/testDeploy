@@ -1,37 +1,101 @@
 package com.oficial.C1739.Service.imp;
 
 import com.oficial.C1739.Entity.Project;
+import com.oficial.C1739.Entity.Usuario;
+import com.oficial.C1739.Enum.State;
 import com.oficial.C1739.Repository.ProjectRepository;
+import com.oficial.C1739.Repository.UsuarioRepository;
 import com.oficial.C1739.Service.ProjectService;
+import com.oficial.C1739.dto.ProjectDTO;
 import com.oficial.C1739.dto.SaveProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @Override
     public Project saveProject(SaveProjectDTO newProjectDto) {
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mailUser = authentication.getName();
+        Usuario usuario = usuarioRepository.findByCorreo(mailUser).orElseThrow(()-> new RuntimeException("Usuario no encontrado."));
+        List<Usuario> myTeam = new ArrayList<>();
+
+        newProjectDto.getTeamMemberIds().forEach(
+                (id) ->{
+                    Optional<Usuario> optUser = usuarioRepository.findById(id);
+                    myTeam.add(optUser.get());
+
+                }
+        );
+        Project project = Project.builder()
+                .name(newProjectDto.getName())
+                .description(newProjectDto.getDescription())
+                .targetAmount(newProjectDto.getTargetAmount())
+                .launch(newProjectDto.getLaunch())
+                .teamName(newProjectDto.getTeamName())
+                .photoUrl(newProjectDto.getPhotoUrl())
+                .state(State.PENDING_REVIEW)
+                .creator(usuario)
+                .likes(0)
+                .teamMembers(myTeam)
+                .build();
+        projectRepository.save(project);
+
+        return project;
     }
 
     @Override
     public Project getProjectById(Long idProject) {
-        return null;
+        Optional<Project> project =  projectRepository.findById(idProject);
+        if (project.isPresent()) {
+            return project.get();
+        }
+        else{
+            throw new RuntimeException("El proyecto no existe");
+        }
     }
 
     @Override
     public List<Project> getAllProjects() {
-        return null;
+        return projectRepository.findAll();
     }
 
     @Override
-    public Project updateProject(Long idProject, SaveProjectDTO newProjectDto) {
-        return null;
+    public Project updateProject(Long idProject, ProjectDTO newProjectDto) {
+        List<Usuario> myTeam = new ArrayList<>();
+
+        newProjectDto.getTeamMemberIds().forEach(
+                (id) ->{
+                    Optional<Usuario> optUser = usuarioRepository.findById(id);
+                    myTeam.add(optUser.get());
+
+                }
+        );
+        System.out.println(myTeam.toString());
+        Project project = this.getProjectById(idProject);
+        project.setName(newProjectDto.getName());
+        project.setDescription(newProjectDto.getDescription());
+        project.setTargetAmount(newProjectDto.getTargetAmount());
+        project.setLaunch(newProjectDto.getLaunch());
+        project.setTeamName(newProjectDto.getTeamName());
+        project.setPhotoUrl(newProjectDto.getPhotoUrl());
+        project.setTeamMembers(myTeam);
+        projectRepository.save(project);
+
+        return project;
     }
 
     @Override

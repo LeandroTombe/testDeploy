@@ -1,6 +1,7 @@
 package com.oficial.C1739.Service;
 
 import com.oficial.C1739.Entity.Project;
+import com.oficial.C1739.dto.ProjectDTO;
 import com.oficial.C1739.dto.SaveProjectDTO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ProjectService {
 
     List<Project> getAllProjects();
 
-    Project updateProject(Long idProject, SaveProjectDTO newProjectDto);
+    Project updateProject(Long idProject, ProjectDTO newProjectDto);
 
     Project deleteProject(Long idProject);
 
