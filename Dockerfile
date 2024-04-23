@@ -16,6 +16,6 @@ WORKDIR /app
 COPY --from=build target/C1739-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Expone el puerto en el que la aplicación se ejecuta dentro del contenedor
-
+EXPOSE 8080
 # Comando para ejecutar la aplicación Spring Boot al iniciar el contenedor
 CMD ["java", "-jar", "app.jar"]
