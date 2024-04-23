@@ -5,22 +5,19 @@ paypal:
   mode: sandbox # sandbox or live, como es para pruebas sandbox
 
 #puerto del servidor
-server:
-  port: 3000
-
 
 #configuracion base de datos
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db_proyecto?createDatabaseIfNotExist=true
+    url: jdbc:mysql://root:iFqbDtsPRmGfOHWCvlxkAxgsQdWKOQwr@monorail.proxy.rlwy.net:34335/railway
     username: root
-    password:
+    password: iFqbDtsPRmGfOHWCvlxkAxgsQdWKOQwr
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-#Configuracion de email java
+  #Configuracion de email java
   mail:
     host: smtp.gmail.com
     port: 587
@@ -32,9 +29,6 @@ spring:
       auth: true
       starttls.enable: true
       ssl.trust: smtp.gmail.com
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
 
 #Documentación con swagger
 springdoc:
@@ -45,11 +39,10 @@ springdoc:
     path: /swagger-ui.html
 
 
-media:
-  location: mediafiles
 
 
-#configuracion de seguridad
+
+  #configuracion de seguridad
   security:
     jwt:
       expiration-in-minute: 1
