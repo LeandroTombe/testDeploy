@@ -39,7 +39,8 @@ springdoc:
     path: /swagger-ui.html
 
 
-
+media:
+  location: mediafiles
 
 
   #configuracion de seguridad
