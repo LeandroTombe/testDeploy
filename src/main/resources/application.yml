@@ -5,9 +5,7 @@ paypal:
   mode: sandbox # sandbox or live, como es para pruebas sandbox
 
 #puerto del servidor
-server:
-  port: 3000
-
+cd.
 
 #configuracion base de datos
 spring:
