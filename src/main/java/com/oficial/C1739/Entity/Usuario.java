@@ -1,6 +1,7 @@
 package com.oficial.C1739.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,19 +53,20 @@ public class Usuario extends Auditable implements UserDetails {
     private Rol rol;
 
     //Relacion con comentarios
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     //comments made sig comentarios hechos o comentarios realizados
     private List<Comment> commentsMade;
 
     //Relacion con inversion
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Investment> investmentsMade;
 
     //Relacion 1aN con proyecto
     @OneToMany(mappedBy = "creator")
+    @JsonIgnore
     private List<Project> createdProjects;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Paid> pagos;
 
 
@@ -131,7 +133,7 @@ public class Usuario extends Auditable implements UserDetails {
         this.estaHabilitado = estaHabilitado;
     }
 
-    public long getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 

@@ -97,7 +97,7 @@ public class HttpSecurityConfig {
         authorize.requestMatchers(HttpMethod.GET, "/success/**").permitAll();
         authorize.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "swagger-ui.html").permitAll();
         authorize.requestMatchers(HttpMethod.GET,"/api/investment").permitAll();
-        authorize.requestMatchers(HttpMethod.GET,"/test").permitAll();
+        authorize.requestMatchers(HttpMethod.GET,"/test").authenticated();
         authorize.anyRequest().authenticated();
 
 
